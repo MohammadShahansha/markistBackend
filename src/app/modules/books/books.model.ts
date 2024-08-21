@@ -1,8 +1,12 @@
 import { model, Schema } from 'mongoose';
-import { TBooks } from './books.route';
+import { TBooks } from './books.interface';
 
 const booksSchema = new Schema<TBooks>({
   name: {
+    type: String,
+    required: true,
+  },
+  author: {
     type: String,
     required: true,
   },
