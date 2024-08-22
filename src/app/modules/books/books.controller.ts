@@ -1,74 +1,57 @@
-import { Request, Response } from 'express';
 import { booksService } from './books.service';
+import { catchAsinc } from '../../utils/catchAsinc';
+import sendResponse from '../../utils/sendResponse';
+import httpStatus from 'http-status';
 
-const createBooks = async (req: Request, res: Response) => {
-  try {
-    const result = await booksService.createBooks(req.body);
-    res.status(201).json({
-      success: true,
-      statusCode: 201,
-      message: 'Books created successfully',
-      data: result,
-    });
-  } catch (err) {
-    console.log(err);
-  }
-};
-const getAllBooks = async (req: Request, res: Response) => {
-  try {
-    const result = await booksService.getAllBooks();
-    res.status(201).json({
-      success: true,
-      statusCode: 201,
-      message: 'Books retrived successfully',
-      data: result,
-    });
-  } catch (err) {
-    console.log(err);
-  }
-};
-const getSingleBook = async (req: Request, res: Response) => {
+const createBooks = catchAsinc(async (req, res) => {
+  const result = await booksService.createBooks(req.body);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Books created successfully',
+    data: result,
+  });
+});
+const getAllBooks = catchAsinc(async (req, res) => {
+  const result = await booksService.getAllBooks();
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Books retrive successfully',
+    data: result,
+  });
+});
+const getSingleBook = catchAsinc(async (req, res) => {
   const { _id } = req.params;
-  try {
-    const result = await booksService.getSingleBook(_id);
-    res.status(201).json({
-      success: true,
-      statusCode: 201,
-      message: 'Single Books retrived successfully',
-      data: result,
-    });
-  } catch (err) {
-    console.log(err);
-  }
-};
-const deleteBook = async (req: Request, res: Response) => {
+
+  const result = await booksService.getSingleBook(_id);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Single Books created successfully',
+    data: result,
+  });
+});
+const deleteBook = catchAsinc(async (req, res) => {
   const { _id } = req.params;
-  try {
-    await booksService.deleteBook(_id);
-    res.status(201).json({
-      success: true,
-      statusCode: 201,
-      message: 'Book deleted successfully',
-      //   data: result,
-    });
-  } catch (err) {
-    console.log(err);
-  }
-};
-const updateBook = async (req: Request, res: Response) => {
+  const result = await booksService.deleteBook(_id);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Book deleted successfully',
+    data: result,
+  });
+});
+const updateBook = catchAsinc(async (req, res) => {
   const { _id } = req.params;
-  try {
-    const result = await booksService.updateBook(_id, req.body);
-    res.status(201).json({
-      success: true,
-      statusCode: 201,
-      message: 'Books updated successfully',
-      data: result,
-    });
-  } catch (err) {
-    console.log(err);
-  }
-};
+  const result = await booksService.updateBook(_id, req.body);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Book updated successfully',
+    data: result,
+  });
+});
 
 export const booksController = {
   createBooks,
