@@ -38,4 +38,15 @@ const userSchema = new Schema<TUser>(
   },
 );
 
+// userSchema.pre('save', async function (next) {
+//   const isUserExist = await UserModel.findOne({
+//     email: this.email,
+//   });
+
+//   if (isUserExist) {
+//     throw new Error('User is allready exist');
+//   }
+//   next();
+// });
+
 export const UserModel = model<TUser>('user', userSchema);

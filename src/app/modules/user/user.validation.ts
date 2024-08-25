@@ -7,6 +7,5 @@ export const userValidationSchema = z.object({
     password: z.string({
       invalid_type_error: 'password must be string',
     }),
-    needsPasswordChange: z.boolean(),
   }),
 });
