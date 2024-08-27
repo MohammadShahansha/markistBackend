@@ -1,7 +1,10 @@
 import mongoose from 'mongoose';
+import { TErrorSourch, TGenericErrorResponse } from '../../interface/error';
 
-const handleValidationError = (err: mongoose.Error.ValidationError) => {
-  const errorSourch = Object.values(err.errors).map(
+const handleValidationError = (
+  err: mongoose.Error.ValidationError,
+): TGenericErrorResponse => {
+  const errorSourch: TErrorSourch = Object.values(err.errors).map(
     (val: mongoose.Error.ValidatorError | mongoose.Error.CastError) => {
       return {
         path: val?.path,
@@ -9,6 +12,7 @@ const handleValidationError = (err: mongoose.Error.ValidationError) => {
       };
     },
   );
+
   const statusCode = 400;
   return {
     statusCode,
