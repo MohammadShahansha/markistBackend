@@ -1,5 +1,6 @@
 import { model, Schema } from 'mongoose';
 import { TUser } from './user.interface';
+import AppError from '../../errors/appErrors';
 
 const userSchema = new Schema<TUser>(
   {
@@ -38,15 +39,15 @@ const userSchema = new Schema<TUser>(
   },
 );
 
-// userSchema.pre('save', async function (next) {
-//   const isUserExist = await UserModel.findOne({
-//     email: this.email,
-//   });
+userSchema.pre('save', async function (next) {
+  const isUserExist = await UserModel.findOne({
+    email: this.email,
+  });
 
-//   if (isUserExist) {
-//     throw new Error('User is allready exist');
-//   }
-//   next();
-// });
+  if (isUserExist) {
+    throw new AppError(404, 'User is allready exist');
+  }
+  next();
+});
 
 export const UserModel = model<TUser>('user', userSchema);
