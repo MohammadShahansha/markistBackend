@@ -1,6 +1,6 @@
 import { model, Schema } from 'mongoose';
 import { TUser } from './user.interface';
-import AppError from '../../errors/appErrors';
+import AppError from '../../errors/AppErrors';
 
 const userSchema = new Schema<TUser>(
   {
