@@ -13,7 +13,8 @@ const createBooks = catchAsinc(async (req, res) => {
   });
 });
 const getAllBooks = catchAsinc(async (req, res) => {
-  const result = await booksService.getAllBooks();
+  // console.log(req.query);
+  const result = await booksService.getAllBooks(req.query);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,

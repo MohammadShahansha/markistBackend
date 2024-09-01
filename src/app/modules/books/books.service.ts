@@ -6,8 +6,16 @@ const createBooks = async (books: TBooks) => {
   return result;
 };
 
-const getAllBooks = async () => {
-  const result = await BooksModel.find();
+const getAllBooks = async (query: Record<string, unknown>) => {
+  let searchTerm = '';
+  if (query?.searchTerm) {
+    searchTerm = query.searchTerm as string;
+  }
+  const result = await BooksModel.find({
+    $or: ['name', 'author'].map((feild) => ({
+      [feild]: { $regex: searchTerm, $options: 'i' },
+    })),
+  });
   return result;
 };
 
