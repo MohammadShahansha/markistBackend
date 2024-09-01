@@ -7,16 +7,41 @@ const createBooks = async (books: TBooks) => {
 };
 
 const getAllBooks = async (query: Record<string, unknown>) => {
+  //searching----------
+  const queryObj = { ...query };
   let searchTerm = '';
   if (query?.searchTerm) {
     searchTerm = query.searchTerm as string;
   }
-  const result = await BooksModel.find({
+
+  const searchQuery = BooksModel.find({
     $or: ['name', 'author'].map((feild) => ({
       [feild]: { $regex: searchTerm, $options: 'i' },
     })),
   });
-  return result;
+
+  //filtering------------------------
+  const excludeFeild = ['searchTerm', 'sort', 'limit'];
+  excludeFeild.forEach((element) => delete queryObj[element]);
+  const filterQuery = searchQuery.find(queryObj);
+
+  //sortQuery---------------
+
+  let sort = '-createdAt';
+  if (query?.sort) {
+    sort = query.sort as string;
+  }
+  const sortQuery = filterQuery.sort(sort);
+
+  //limitQuery-------------
+  let limit = 1;
+  if (query?.limit) {
+    limit = query.limit as number;
+  }
+
+  const limitQuery = sortQuery.limit(limit);
+
+  return limitQuery;
 };
 
 const getSingleBook = async (id: string) => {
