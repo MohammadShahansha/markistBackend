@@ -21,8 +21,11 @@ const getAllBooks = async (query: Record<string, unknown>) => {
   });
 
   //filtering------------------------
-  const excludeFeild = ['searchTerm', 'sort', 'limit'];
+  const excludeFeild = ['searchTerm', 'sort', 'limit', 'page'];
   excludeFeild.forEach((element) => delete queryObj[element]);
+
+  console.log({ query }, { queryObj });
+
   const filterQuery = searchQuery.find(queryObj);
 
   //sortQuery---------------
@@ -34,12 +37,23 @@ const getAllBooks = async (query: Record<string, unknown>) => {
   const sortQuery = filterQuery.sort(sort);
 
   //limitQuery-------------
+
+  let page = 1;
   let limit = 1;
+  let skip = 0;
+
   if (query?.limit) {
     limit = query.limit as number;
   }
 
-  const limitQuery = sortQuery.limit(limit);
+  if (query?.page) {
+    page = Number(query?.page);
+    skip = (page - 1) * limit;
+  }
+
+  const paginateQuery = sortQuery.skip(skip);
+
+  const limitQuery = paginateQuery.limit(limit);
 
   return limitQuery;
 };
