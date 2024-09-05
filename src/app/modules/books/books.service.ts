@@ -1,3 +1,5 @@
+import QueryBuilder from '../../builder/QueryBuilder';
+import { searchableFeild } from './books.constant';
 import { TBooks } from './books.interface';
 import { BooksModel } from './books.model';
 
@@ -8,54 +10,63 @@ const createBooks = async (books: TBooks) => {
 
 const getAllBooks = async (query: Record<string, unknown>) => {
   //searching----------
-  const queryObj = { ...query };
-  let searchTerm = '';
-  if (query?.searchTerm) {
-    searchTerm = query.searchTerm as string;
-  }
+  // const queryObj = { ...query };
+  // let searchTerm = '';
+  // if (query?.searchTerm) {
+  //   searchTerm = query.searchTerm as string;
+  // }
 
-  const searchQuery = BooksModel.find({
-    $or: ['name', 'author'].map((feild) => ({
-      [feild]: { $regex: searchTerm, $options: 'i' },
-    })),
-  });
+  // const searchQuery = BooksModel.find({
+  //   $or: ['name', 'author'].map((feild) => ({
+  //     [feild]: { $regex: searchTerm, $options: 'i' },
+  //   })),
+  // });
 
   //filtering------------------------
-  const excludeFeild = ['searchTerm', 'sort', 'limit', 'page'];
-  excludeFeild.forEach((element) => delete queryObj[element]);
 
-  console.log({ query }, { queryObj });
+  // const excludeFeild = ['searchTerm', 'sort', 'limit', 'page'];
+  // excludeFeild.forEach((element) => delete queryObj[element]);
 
-  const filterQuery = searchQuery.find(queryObj);
+  // console.log({ query }, { queryObj });
+  // const filterQuery = searchQuery.find(queryObj);
 
   //sortQuery---------------
 
-  let sort = '-createdAt';
-  if (query?.sort) {
-    sort = query.sort as string;
-  }
-  const sortQuery = filterQuery.sort(sort);
+  // let sort = '-createdAt';
+  // if (query?.sort) {
+  //   sort = query.sort as string;
+  // }
+  // const sortQuery = filterQuery.sort(sort);
 
   //limitQuery-------------
 
-  let page = 1;
-  let limit = 1;
-  let skip = 0;
+  // let page = 1;
+  // let limit = 1;
+  // let skip = 0;
 
-  if (query?.limit) {
-    limit = query.limit as number;
-  }
+  // if (query?.limit) {
+  //   limit = query.limit as number;
+  // }
 
-  if (query?.page) {
-    page = Number(query?.page);
-    skip = (page - 1) * limit;
-  }
+  // if (query?.page) {
+  //   page = Number(query?.page);
+  //   skip = (page - 1) * limit;
+  // }
 
-  const paginateQuery = sortQuery.skip(skip);
+  // const paginateQuery = sortQuery.skip(skip);
 
-  const limitQuery = paginateQuery.limit(limit);
+  // const limitQuery = paginateQuery.limit(limit);
 
-  return limitQuery;
+  // return limitQuery;
+
+  const booksQuery = new QueryBuilder(BooksModel.find(), query)
+    .search(searchableFeild)
+    .filter()
+    .sort()
+    .paginate();
+
+  const result = await booksQuery.modelQuery;
+  return result;
 };
 
 const getSingleBook = async (id: string) => {
