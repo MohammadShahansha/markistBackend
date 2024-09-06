@@ -42,4 +42,4 @@ const shoesSchema = new Schema<TShoes>(
   },
 );
 
-export const ShoesModel = model<TShoes>('Shoe', shoesSchema);
+export const ShoesModel = model<TShoes>('shoe', shoesSchema);
