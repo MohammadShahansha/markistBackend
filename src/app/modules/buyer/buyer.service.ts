@@ -24,7 +24,7 @@ const updateBuyerProduct = async (_id: string, byuerProductData: TBuyer) => {
   });
   return result;
 };
-export const clothService = {
+export const buyerProductService = {
   createBuyerProduct,
   getAllBuyerProduct,
   getSingleBuyerProduct,
