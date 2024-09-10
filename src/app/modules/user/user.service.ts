@@ -1,12 +1,12 @@
 import { TUser } from './user.interface';
-import { UserModel } from './user.model';
+import { UsersModel } from './user.model';
 
 const createUser = async (user: TUser) => {
-  const result = await UserModel.create(user);
+  const result = await UsersModel.create(user);
   return result;
 };
 const getAllUser = async () => {
-  const result = await UserModel.find();
+  const result = await UsersModel.find();
 
   return result;
 };

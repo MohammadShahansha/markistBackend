@@ -1,8 +1,10 @@
 import { model, Schema } from 'mongoose';
-import { TUser } from './user.interface';
+import { TUser, UserModel } from './user.interface';
 import AppError from '../../errors/AppErrors';
+import bcrypt from 'bcrypt';
+import config from '../../config';
 
-const userSchema = new Schema<TUser>(
+const userSchema = new Schema<TUser, UserModel>(
   {
     userName: {
       type: String,
@@ -40,7 +42,14 @@ const userSchema = new Schema<TUser>(
 );
 
 userSchema.pre('save', async function (next) {
-  const isUserExist = await UserModel.findOne({
+  // eslint-disable-next-line @typescript-eslint/no-this-alias
+  const user = this;
+  user.password = await bcrypt.hash(user?.password, Number(config.bcrypt_salt));
+  next();
+});
+
+userSchema.pre('save', async function (next) {
+  const isUserExist = await UsersModel.findOne({
     email: this.email,
   });
 
@@ -50,4 +59,15 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
-export const UserModel = model<TUser>('user', userSchema);
+userSchema.statics.isUserExistByCustomEmail = async function (email: string) {
+  return await UsersModel.findOne({ email });
+};
+
+userSchema.statics.isPasswordMatch = async function (
+  plainTextPassword,
+  hashTextPassword,
+) {
+  return await bcrypt.compare(plainTextPassword, hashTextPassword);
+};
+
+export const UsersModel = model<TUser, UserModel>('user', userSchema);
