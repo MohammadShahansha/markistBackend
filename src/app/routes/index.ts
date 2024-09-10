@@ -4,6 +4,7 @@ import { userRouter } from '../modules/user/user.route';
 import { clothRouter } from '../modules/cloth/cloth.route';
 import { shoesRouter } from '../modules/shoes/shoes.route';
 import { buyerProductRouter } from '../modules/buyer/buyer.router';
+import { loginRouter } from '../modules/auth/auth.route';
 
 const router = express.Router();
 
@@ -27,6 +28,10 @@ const moduleRoutes = [
   {
     path: '/buyer-product',
     route: buyerProductRouter,
+  },
+  {
+    path: '/auth',
+    route: loginRouter,
   },
 ];
 

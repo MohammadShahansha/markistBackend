@@ -13,6 +13,18 @@ const createUser = catchAsinc(async (req, res) => {
   });
 });
 
+const getAllUser = catchAsinc(async (req, res) => {
+  // console.log(req.query);
+  const result = await userService.getAllUser();
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Users retrive successfully',
+    data: result,
+  });
+});
+
 export const userController = {
   createUser,
+  getAllUser,
 };
