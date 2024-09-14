@@ -5,6 +5,7 @@ import { clothRouter } from '../modules/cloth/cloth.route';
 import { shoesRouter } from '../modules/shoes/shoes.route';
 import { buyerProductRouter } from '../modules/buyer/buyer.router';
 import { loginRouter } from '../modules/auth/auth.route';
+import { utilsRouter } from '../modules/utility/utility.route';
 
 const router = express.Router();
 
@@ -32,6 +33,10 @@ const moduleRoutes = [
   {
     path: '/auth',
     route: loginRouter,
+  },
+  {
+    path: '/util',
+    route: utilsRouter,
   },
 ];
 

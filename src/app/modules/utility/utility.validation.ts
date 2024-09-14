@@ -29,7 +29,7 @@ const updateUtilsValidationSchema = z.object({
   }),
 });
 
-export const shoesValidation = {
+export const utilsValidation = {
   utilsValidationSchema,
   updateUtilsValidationSchema,
 };
