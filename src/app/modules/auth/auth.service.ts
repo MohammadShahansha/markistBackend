@@ -23,7 +23,6 @@ const loginUser = async (payload: TLogin) => {
   const accessToken = jwt.sign(jswPayload, config.jwt_access_token as string, {
     expiresIn: '10d',
   });
-
   return {
     accessToken,
     needsPasswordChange: user?.needsPasswordChange,
