@@ -9,7 +9,7 @@ interface CustomeRequest extends Request {
   user: JwtPayload;
 }
 
-const auth = () => {
+const auth = (...requirdRoles: string[]) => {
   return catchAsinc(
     async (req: CustomeRequest, res: Response, next: NextFunction) => {
       const token = req.headers.authorization;
@@ -32,6 +32,15 @@ const auth = () => {
               'You are not authorize',
             );
           }
+
+          const role = (decoded as JwtPayload).role;
+          if (requirdRoles && !requirdRoles.includes(role)) {
+            throw new AppError(
+              httpStatus.UNAUTHORIZED,
+              'You are not authorize',
+            );
+          }
+
           // decoded undefined
           req.user = decoded as JwtPayload;
           console.log(decoded);

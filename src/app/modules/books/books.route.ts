@@ -7,6 +7,7 @@ const router = express.Router();
 router.post(
   '/create-book',
   // booksValidation.booksValidationSchema,
+  auth('admin'),
   booksController.createBooks,
 );
 router.get('/get-books', auth(), booksController.getAllBooks);
