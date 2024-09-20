@@ -9,7 +9,6 @@ router.post(
   validateRequest(loginValidation.loginValidationSchema),
   loginController.loginUser,
 );
-//this is password change route
 router.post(
   '/change-password',
   auth('admin', 'user'),
