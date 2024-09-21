@@ -10,9 +10,13 @@ router.post(
   auth('admin'),
   booksController.createBooks,
 );
-router.get('/get-books', auth(), booksController.getAllBooks);
-router.get('/single-book/:_id', booksController.getSingleBook);
-router.delete('/delete-book/:_id', booksController.deleteBook);
-router.put('/update-book/:_id', booksController.updateBook);
+router.get('/get-books', auth('admin', 'user'), booksController.getAllBooks);
+router.get(
+  '/single-book/:_id',
+  auth('admin', 'user'),
+  booksController.getSingleBook,
+);
+router.delete('/delete-book/:_id', auth('admin'), booksController.deleteBook);
+router.put('/update-book/:_id', auth('admin'), booksController.updateBook);
 
 export const booksRouter = router;

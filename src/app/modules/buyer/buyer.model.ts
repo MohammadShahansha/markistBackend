@@ -24,7 +24,7 @@ const buyerSchema = new Schema<TBuyer>({
   },
   productId: {
     type: Schema.Types.ObjectId,
-    ref: 'cloth' || 'shoe' || 'book',
+    ref: 'cloth' || 'shoe' || 'book' || 'util',
   },
 });
 export const BuyerModel = model<TBuyer>('buyer', buyerSchema);

@@ -50,8 +50,8 @@ const getSingleCloth = async (id: string) => {
   const result = await ClothModel.findById(id);
   return result;
 };
-const deleteCloth = async (id: string) => {
-  const result = await ClothModel.findByIdAndDelete({ id });
+const deleteCloth = async (_id: string) => {
+  const result = await ClothModel.findByIdAndDelete({ _id });
   return result;
 };
 const updateCloth = async (_id: string, clothData: TCloth) => {

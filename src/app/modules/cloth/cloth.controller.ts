@@ -35,6 +35,7 @@ const getSingleCloth = catchAsinc(async (req, res) => {
 });
 const deleteCloth = catchAsinc(async (req, res) => {
   const { _id } = req.params;
+  console.log(_id);
   const result = await clothService.deleteCloth(_id);
   sendResponse(res, {
     statusCode: httpStatus.OK,
