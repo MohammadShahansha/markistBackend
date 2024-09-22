@@ -16,8 +16,8 @@ const getSingleShoes = async (id: string) => {
   const result = await ShoesModel.findById(id);
   return result;
 };
-const deleteShoe = async (id: string) => {
-  const result = await ShoesModel.findByIdAndDelete({ id });
+const deleteShoe = async (_id: string) => {
+  const result = await ShoesModel.findByIdAndDelete({ _id });
   return result;
 };
 const updateShoe = async (_id: string, shoesData: TShoes) => {
