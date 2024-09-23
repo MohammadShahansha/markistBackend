@@ -24,7 +24,12 @@ const buyerSchema = new Schema<TBuyer>({
   },
   productId: {
     type: Schema.Types.ObjectId,
-    ref: 'cloth' || 'shoe' || 'book' || 'util',
+    refPath: 'productType',
+  },
+  productType: {
+    type: String,
+    enum: ['cloth', 'shoe', 'book', 'util'],
+    required: true,
   },
 });
 export const BuyerModel = model<TBuyer>('buyer', buyerSchema);

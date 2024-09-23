@@ -8,5 +8,6 @@ export const buyerValidationSchema = z.object({
     phone: z.string(),
     date: z.string(),
     productId: z.string(),
+    productType: z.string(),
   }),
 });

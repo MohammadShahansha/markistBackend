@@ -7,7 +7,7 @@ const createBuyerProduct = async (buyer: TBuyer) => {
 };
 
 const getAllBuyerProduct = async () => {
-  const result = await BuyerModel.find();
+  const result = await BuyerModel.find().populate('productId');
 
   return result;
 };

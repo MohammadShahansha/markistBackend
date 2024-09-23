@@ -7,4 +7,5 @@ export type TBuyer = {
   phone: string;
   date: Date;
   productId: Types.ObjectId;
+  productType: 'cloth' | 'shoe' | 'book' | 'util';
 };

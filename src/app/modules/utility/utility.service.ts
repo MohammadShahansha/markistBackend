@@ -16,8 +16,8 @@ const getSingleUtil = async (id: string) => {
   const result = await UtilModel.findById(id);
   return result;
 };
-const deleteUtil = async (id: string) => {
-  const result = await UtilModel.findByIdAndDelete({ id });
+const deleteUtil = async (_id: string) => {
+  const result = await UtilModel.findByIdAndDelete({ _id });
   return result;
 };
 const updateUtil = async (_id: string, utilsData: TUtil) => {

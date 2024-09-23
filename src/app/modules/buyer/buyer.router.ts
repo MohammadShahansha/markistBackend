@@ -1,10 +1,12 @@
 import express from 'express';
 import { buyerProductController } from './buyer.controller';
+import validateRequest from '../../middlewares/validateRequest';
+import { buyerValidationSchema } from './buyer.validation';
 
 const router = express.Router();
 router.post(
   '/create',
-  // booksValidation.booksValidationSchema,
+  validateRequest(buyerValidationSchema),
   buyerProductController.createBuyerProduct,
 );
 router.get('/get', buyerProductController.getAllBuyerProduct);

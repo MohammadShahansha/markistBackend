@@ -13,7 +13,8 @@ const loginUser = catchAsinc(async (req, res) => {
   });
 });
 const changePassword = catchAsinc(async (req, res) => {
-  const result = await loginService.changePassword();
+  const { ...passwordData } = req.body;
+  const result = await loginService.changePassword(req.user, passwordData);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
