@@ -6,6 +6,7 @@ import { shoesRouter } from '../modules/shoes/shoes.route';
 import { buyerProductRouter } from '../modules/buyer/buyer.router';
 import { loginRouter } from '../modules/auth/auth.route';
 import { utilsRouter } from '../modules/utility/utility.route';
+import { paymentRoute } from '../modules/payment/payment.routes';
 
 const router = express.Router();
 
@@ -37,6 +38,10 @@ const moduleRoutes = [
   {
     path: '/util',
     route: utilsRouter,
+  },
+  {
+    path: '/payment',
+    route: paymentRoute,
   },
 ];
 

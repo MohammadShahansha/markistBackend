@@ -13,7 +13,7 @@ const auth = (...requirdRoles: string[]) => {
   return catchAsinc(
     async (req: CustomeRequest, res: Response, next: NextFunction) => {
       const token = req.headers.authorization;
-      console.log(token);
+      // console.log(token);
       if (!token) {
         throw new AppError(
           httpStatus.UNAUTHORIZED,
@@ -21,31 +21,17 @@ const auth = (...requirdRoles: string[]) => {
         );
       }
 
-      jwt.verify(
+      const decoded = jwt.verify(
         token,
         config.jwt_access_token as string,
-        function (err, decoded) {
-          // err
-          if (err) {
-            throw new AppError(
-              httpStatus.UNAUTHORIZED,
-              'You are not authorize',
-            );
-          }
+      ) as JwtPayload;
+      const role = decoded.role;
+      if (requirdRoles && !requirdRoles.includes(role)) {
+        throw new AppError(httpStatus.UNAUTHORIZED, 'You are not authorize');
+      }
 
-          const role = (decoded as JwtPayload).role;
-          if (requirdRoles && !requirdRoles.includes(role)) {
-            throw new AppError(
-              httpStatus.UNAUTHORIZED,
-              'You are not authorize',
-            );
-          }
-
-          // decoded undefined
-          req.user = decoded as JwtPayload;
-          console.log(decoded);
-        },
-      );
+      // decoded undefined
+      req.user = decoded as JwtPayload;
       next();
     },
   );

@@ -22,6 +22,9 @@ const buyerSchema = new Schema<TBuyer>({
     type: Date,
     required: true,
   },
+  transectionId: {
+    type: String,
+  },
   productId: {
     type: Schema.Types.ObjectId,
     refPath: 'productType',

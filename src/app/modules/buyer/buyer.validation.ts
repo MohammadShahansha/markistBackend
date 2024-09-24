@@ -7,6 +7,7 @@ export const buyerValidationSchema = z.object({
     address: z.string(),
     phone: z.string(),
     date: z.string(),
+    transectionId: z.string().optional(),
     productId: z.string(),
     productType: z.string(),
   }),

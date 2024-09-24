@@ -2,7 +2,21 @@ import { TBuyer } from './buyer.interface';
 import { BuyerModel } from './buyer.model';
 
 const createBuyerProduct = async (buyer: TBuyer) => {
-  const result = await BuyerModel.create(buyer);
+  const today = new Date();
+  const transectionId =
+    'Markist-Shop' +
+    today.getFullYear() +
+    '-' +
+    today.getMonth() +
+    '-' +
+    today.getHours() +
+    '-' +
+    today.getMinutes() +
+    '-' +
+    today.getSeconds();
+  const buyerData = await BuyerModel.create(buyer);
+  const result = { buyerData, transectionId };
+  console.log(result);
   return result;
 };
 
