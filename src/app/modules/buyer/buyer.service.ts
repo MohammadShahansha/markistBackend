@@ -15,13 +15,17 @@ const createBuyerProduct = async (buyer: TBuyer) => {
     '-' +
     today.getSeconds();
   const buyerData = await BuyerModel.create(buyer);
-  const result = { buyerData, transectionId };
-  console.log(result);
-  return result;
+
+  buyerData.transectionId = transectionId;
+
+  await buyerData.save();
+  return buyerData;
 };
 
 const getAllBuyerProduct = async () => {
-  const result = await BuyerModel.find().populate('productId');
+  const result = await BuyerModel.find()
+    .populate('productId')
+    .select('+transectionId');
 
   return result;
 };

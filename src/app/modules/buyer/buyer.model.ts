@@ -35,4 +35,5 @@ const buyerSchema = new Schema<TBuyer>({
     required: true,
   },
 });
+
 export const BuyerModel = model<TBuyer>('buyer', buyerSchema);

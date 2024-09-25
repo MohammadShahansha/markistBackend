@@ -4,7 +4,8 @@ import sendResponse from '../../utils/sendResponse';
 import { paymentService } from './payment.service';
 
 const initiatPayment = catchAsinc(async (req, res) => {
-  const result = await paymentService.initiatPayment();
+  const { buyerId } = req.params;
+  const result = await paymentService.initiatPayment(buyerId);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,

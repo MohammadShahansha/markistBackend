@@ -6,7 +6,7 @@ export type TBuyer = {
   address: string;
   phone: string;
   date: Date;
-  transectionId?: string;
+  transectionId: string;
   productId: Types.ObjectId;
   productType: 'cloth' | 'shoe' | 'book' | 'util';
 };

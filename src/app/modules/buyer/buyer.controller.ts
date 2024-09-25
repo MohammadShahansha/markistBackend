@@ -4,7 +4,9 @@ import httpStatus from 'http-status';
 import { buyerProductService } from './buyer.service';
 
 const createBuyerProduct = catchAsinc(async (req, res) => {
+  console.log(req.body);
   const result = await buyerProductService.createBuyerProduct(req.body);
+  console.log(result);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -15,6 +17,7 @@ const createBuyerProduct = catchAsinc(async (req, res) => {
 const getAllBuyerProduct = catchAsinc(async (req, res) => {
   // console.log(req.query);
   const result = await buyerProductService.getAllBuyerProduct();
+  console.log(result);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
