@@ -52,7 +52,8 @@ const initPayment = async (paymentData: TPaymentData) => {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     });
     return response.data;
-  } catch (err) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
+  } catch (err: any) {
     throw new AppError(httpStatus.BAD_REQUEST, 'Payment occure error');
   }
 };

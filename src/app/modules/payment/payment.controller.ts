@@ -13,7 +13,17 @@ const initiatPayment = catchAsinc(async (req, res) => {
     data: result,
   });
 });
+const validatePayment = catchAsinc(async (req, res) => {
+  const result = await paymentService.validatePayment(req.query);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'payment validate successfully',
+    data: result,
+  });
+});
 
 export const paymentController = {
   initiatPayment,
+  validatePayment,
 };
