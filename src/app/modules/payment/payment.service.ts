@@ -33,10 +33,10 @@ const validatePayment = async (payload: any) => {
     };
   }
 
-  const response = await axios({
-    method: 'GET',
-    url: `${config.ssl.ssl_payment_api}?val_id=${payload.val_id}&store_id=${config.ssl.storeId}&store_passwd=${config.ssl.storePassword}&format=json`,
-  });
+  // const response = await axios({
+  //   method: 'GET',
+  //   url: `${config.ssl.ssl_payment_api}?val_id=${payload.val_id}&store_id=${config.ssl.storeId}&store_passwd=${config.ssl.storePassword}&format=json`,
+  // });
 };
 
 export const paymentService = {
